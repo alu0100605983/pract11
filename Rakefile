@@ -9,7 +9,7 @@ task :default => :bin
 
 desc "Documentacion"
 task :doc do
-	sh "firefox doc/doc/created_rid.html"
+	sh "firefox doc/index.html"
 end
 
 desc "Pruebas Unitarias"

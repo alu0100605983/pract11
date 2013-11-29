@@ -42,6 +42,12 @@ describe Matriz do
                 it "Suma de fracciones con enteros" do
                         (@m1+@m3).should eq(Matriz.constructorvec(3,3,[Fraccion.new(3,2), Fraccion.new(7,3), Fraccion.new(13,4),Fraccion.new(9,2), Fraccion.new(16,3), Fraccion.new(25,4),Fraccion.new(15,2), Fraccion.new(25,3), Fraccion.new(37,4)]))
                 end   
+
+		it "Encontrar" do
+			m5 = Matriz.constructorvec(3,3,[1,2,3,4,5,6,7,8,9])
+			m5.encontrar{|e| e*e>=16}.should eq(1,0)
+		end
         end
+
 end
 

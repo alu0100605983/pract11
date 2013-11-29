@@ -190,6 +190,20 @@ class Matriz
 			end
 		end
 	end 
+
+	def encontrar()
+		@fil.times do |i|
+			@col.times do |j|
+				value=self[i,j]
+				if(yield(value))
+					return [i,j]
+				end
+			end
+			
+		end 
+		return nil
+	end
+	
 	#==Metodo coerce
 	#Metodo de conversion implicita
 	def coerce(object)
@@ -197,6 +211,7 @@ class Matriz
 	end
 
 end
+
 
 
 

@@ -1,3 +1,4 @@
+#===Clase matriz
 class Matriz 
 
 	attr_reader :fil, :col
@@ -7,6 +8,7 @@ class Matriz
 		@col=col
 		@mat = Array.new(fil){Array.new(col)}
 	end
+	#==Constructores
 	#Constructir en el cual seleccionas el tipo de matriz	
 
 	def Matriz.constructor(fil, col, tip)
@@ -70,6 +72,7 @@ class Matriz
 
 	end
 	
+	#==Metodos de acceso
 	#Metodo de acceso a una posicion de la matriz
 	def[](i,j)
 		return @mat[i][j]
@@ -80,7 +83,7 @@ class Matriz
 		@mat[i][j]=num 
 	end	
 
-	#Sobrecarga del metodo de comparacion ==
+	#== Sobrecarga del metodo de comparacion ==
 	def ==(other)
 		#Si tienen las mismas filas y columnas para todos los elementos de las filas y las columnas si no hay ninguno diferente, la matriz es igual
 		if(self.fil == other.fil && self.col == other.col)
@@ -96,12 +99,12 @@ class Matriz
 		return false
 
 	end
-	
+	#==Metodo insertar
 	#Inserta un elemento en una posicion de la matriz
 	def insertar(i, j, num)
 		self[i,j] = num
 	end
-
+	#==Metodo maximo
 	#Calcula el mayor elemento de una matriz
 	def maximo
 		aux = self[0,0]
@@ -114,7 +117,7 @@ class Matriz
 		end	
 		return aux
 	end
-
+	#==Metodo minimo
 	#Calcula el menor elemento de una matriz
 	def minimo
 		aux = self[0,0]
@@ -128,7 +131,7 @@ class Matriz
 		return aux
 	end
 
-	
+	#==Metodo mostrar
 	#Muestra todos los elementos de la matriz con formato
 	def mostrar
 		for i in 0...@fil
@@ -140,7 +143,7 @@ class Matriz
 		end
 	end
 	
-	#Metodo suma
+	#==Metodo suma
 	#Suma dos matrices, ya sean densas o dispersas
 	def +(other)
 		
@@ -156,7 +159,7 @@ class Matriz
 	end
 
 
-	#Metodo multiplicacion
+	#==Metodo multiplicacion
 	#Multiplica dos matrices  ya sean densas o dispersas
 	def *(other)
 		if(@fil == other.col)
@@ -178,7 +181,7 @@ class Matriz
 		end
 		return Matriz.constructorcop(mult)
 	end
-	
+	#==Metodo rellenar aleatorio
 	#Rellena la matriz con numeros aleatorios entre 0 y 9
 	def rellenarAleatorio
 		for i in 0...@fil
@@ -187,12 +190,28 @@ class Matriz
 			end
 		end
 	end 
+
+	def encontrar()
+		for i in 0...@fil
+				for j in 0...@col
+					value=self[i,j]
+					if(yield(value))
+						return [i,j]
+					end
+				end
+			
+		end 
+		return nil
+	end
+	
+	#==Metodo coerce
 	#Metodo de conversion implicita
 	def coerce(object)
 		[self, object]
 	end
 
 end
+
 
 
 
