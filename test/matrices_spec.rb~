@@ -1,0 +1,72 @@
+require '../lib/pract09/matrices.rb' 
+
+describe Matriz do
+        before :each do       
+				# Densas
+                @m1 = Matriz.new(2,2)
+               	m1[0,0]=1
+		m1[0,1]=2
+		m1[1,0]=3
+		m1[1,1]=4
+                 
+                # Dispersas              
+                @m2 = Matriz.new(2,2)
+               	m2[0,0]=5
+		m2[1,1]=1
+               
+                # Densas con fracciones
+                @m5 = Matriz.new(3,3,[Fraccion.new(1,2),Fraccion.new(1,3),Fraccion.new(1,4),Fraccion.new(1,2),Fraccion.new(1,3),Fraccion.new(1,4),Fraccion.new(1,2),Fraccion.new(1,3),Fraccion.new(1,4)])
+                @m6 = Matriz.new(2,2,[Fraccion.new(1,2),Fraccion.new(2,3),Fraccion.new(3,4),Fraccion.new(4,5)])
+        end
+
+#Initialize
+        describe "#Inicializar la matriz" do
+                it "Se accede a los elementos" do
+                        @m1[1,0].should eq(3)
+                        @m1[1,1].should eq(4)
+                        @m2.pos(2,1).should eq(8) 
+                end
+        end
+
+#Comprobacion de maximos y minimos
+		describe "Maximos y minimos" do
+			it "Minimo elemento de una matriz" do
+				x = @m1.minimo
+				x.should eq(1)
+			end
+			
+			it "Maximo elemento de una matriz" do
+				x = @m1.maximo
+				x.should eq(9)
+			end
+		end
+
+
+#creacion de matrices dispersas
+        describe "#Crear matriz dispersa" do
+                it "se accede correctamente" do
+                        @m3.pos(0,0).should eq(1)
+                        @m3.pos(1,1).should eq(2)
+                        @m3.pos(2,2).should eq(3)
+                end
+        end
+
+#Prueba de matrices densas y dispersas. 
+		describe "Operaciones" do
+                it "Suma de matrices dispersas" do
+                        (@m3+@m4).to_s().should eq("[[0,0,2][1,1,4][2,2,6]]")
+                end                
+                
+                it "Suma de matrices densas con dispersas" do
+                        (@m1+@m3).to_s().should eq("[[2, 2, 3], [4, 7, 6], [7, 8, 12]]")
+                end
+                
+                it "Suma de matrices dispersas con densas " do
+                        (@m3+@m1).to_s().should eq("[[2, 2, 3], [4, 7, 6], [7, 8, 12]]")
+                end   
+                
+                it "Suma de fracciones con enteros" do
+                        (@m1+@m5).to_s.should eq("[[[3/2, 7/3, 3/4],[2/1, 5/3, 3/2],[7/2, 8/3, 9/4]]")
+                end   
+        end
+end
