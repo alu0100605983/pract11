@@ -1,3 +1,4 @@
+#===Clase matriz
 class Matriz 
 
 	attr_reader :fil, :col
@@ -7,7 +8,9 @@ class Matriz
 		@col=col
 		@mat = Array.new(fil){Array.new(col)}
 	end
-	
+	#==Constructores
+	#Constructir en el cual seleccionas el tipo de matriz	
+
 	def Matriz.constructor(fil, col, tip)
 		if(tip == 0)
 			Matriz.new(fil, col)
@@ -15,7 +18,7 @@ class Matriz
 			MatrizDispersa.new(fil, col)
 		end
 	end
-
+	#Constructor que crea una matriz a partir de otra(Densa)
 	def Matriz.constructorcop(matrix)
 		aux = 0
 		for i in(0...matrix.fil)
@@ -25,8 +28,9 @@ class Matriz
 				end
 			end	
 		end
-
+		#Calcula el numero de 0 de la matriz y los almacena en aux
 		if(aux > (matrix.fil*matrix.col)/2)
+		#Si el valor de aux es mayor que la mitad de la capacidad de la matriz, se crea una matriz dispersa, si no, se crea una densa
 			a = MatrizDispersa.new(matrix.fil, matrix.col)
 			for i in(0...matrix.fil)
 				for j in(0...matrix.col)
@@ -39,15 +43,15 @@ class Matriz
 
 	end
 
-
+	#Construye una matriz a partir de un vector de elementos
 	def Matriz.constructorvec(fil, col, vector)
 		aux = 0
-		for i in(0...vector.size)
+		for i in(0...vector.size)#Comprueba el numero de 0 de la matriz
 				if(vector[i] == 0)
 				aux = aux+1
 				end
 		end
-
+		#Si e numeor de 0 es mayor que la mitad de la capacidad de la matriz se crea una matriz dispersa, en caso contrario, densa.
 		if(aux > (fil*col)/2)
 			a = MatrizDispersa.new(fil,col)
 			for i in(0...fil)
@@ -68,16 +72,20 @@ class Matriz
 
 	end
 	
-	
+	#==Metodos de acceso
+	#Metodo de acceso a una posicion de la matriz
 	def[](i,j)
 		return @mat[i][j]
 	end	
 	
+	#Metodo de asignacion para una posicion de la matriz
 	def[]=(i,j,num)
 		@mat[i][j]=num 
 	end	
 
+	#== Sobrecarga del metodo de comparacion ==
 	def ==(other)
+		#Si tienen las mismas filas y columnas para todos los elementos de las filas y las columnas si no hay ninguno diferente, la matriz es igual
 		if(self.fil == other.fil && self.col == other.col)
 			for i in(0...self.fil)
 					for j in(0...self.col)
@@ -91,12 +99,13 @@ class Matriz
 		return false
 
 	end
-	
-
+	#==Metodo insertar
+	#Inserta un elemento en una posicion de la matriz
 	def insertar(i, j, num)
 		self[i,j] = num
 	end
-
+	#==Metodo maximo
+	#Calcula el mayor elemento de una matriz
 	def maximo
 		aux = self[0,0]
 		for i in(0...@fil)
@@ -108,7 +117,8 @@ class Matriz
 		end	
 		return aux
 	end
-
+	#==Metodo minimo
+	#Calcula el menor elemento de una matriz
 	def minimo
 		aux = self[0,0]
 		for i in(0...@fil)
@@ -121,8 +131,8 @@ class Matriz
 		return aux
 	end
 
-	
-
+	#==Metodo mostrar
+	#Muestra todos los elementos de la matriz con formato
 	def mostrar
 		for i in 0...@fil
 			for j in 0...@col
@@ -133,13 +143,14 @@ class Matriz
 		end
 	end
 	
-
+	#==Metodo suma
+	#Suma dos matrices, ya sean densas o dispersas
 	def +(other)
 		
 		if(@fil == other.fil && @col == other.col)
 		aux = Matriz.new(@fil,@col)
-			for i in (0...@fil)
-				for j in (0...@col)
+			 @fil.times do |i| 
+				@col.times do |j|
 				aux[i,j]=(self[i,j] + other[i,j])
 				end
 			end
@@ -148,19 +159,20 @@ class Matriz
 	end
 
 
-	
+	#==Metodo multiplicacion
+	#Multiplica dos matrices  ya sean densas o dispersas
 	def *(other)
 		if(@fil == other.col)
 			mult = Matriz.new(@fil, other.col)
-			for i in (0...mult.fil)
-				for j in (0...mult.col)
+			mult.fil.times do |i|
+				mult.col.times do |j|
 					mult[i,j]= 0
 				end
 			end
 
-			for i in (0... @fil)
-				for j in (0... other.col)
-					for k in (0... other.col)
+			@fil.times do |i| 
+				@col.times do |j| 
+					@col.times do |k| 
 						mult[i,j] = mult[i,j] + (self[i,k] * other[k,j])
 					
 					end
@@ -169,8 +181,8 @@ class Matriz
 		end
 		return Matriz.constructorcop(mult)
 	end
-	
-	
+	#==Metodo rellenar aleatorio
+	#Rellena la matriz con numeros aleatorios entre 0 y 9
 	def rellenarAleatorio
 		for i in 0...@fil
 			for j in 0...@col
@@ -178,7 +190,8 @@ class Matriz
 			end
 		end
 	end 
-
+	#==Metodo coerce
+	#Metodo de conversion implicita
 	def coerce(object)
 		[self, object]
 	end

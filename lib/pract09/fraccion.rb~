@@ -173,9 +173,12 @@ class Fraccion #Clase Fraccion
 		return false
 	end
 
+	#Metodo comparable
 	 def <=> (object)
         	  self.flotante<=>object.flotante    
     	 end
+
+	#Metodo de conversion implicita
 	def coerce(object)
 		[self, object]
 	end

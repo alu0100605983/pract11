@@ -1,3 +1,5 @@
+#=== Clase matriz dispersa
+
 class MatrizDispersa < Matriz
 
  	def initialize(filas, columnas)
@@ -7,6 +9,8 @@ class MatrizDispersa < Matriz
                 @vcol = Array.new
         end
 	
+	#==Metodo maximo
+	#Metodo sobrecargado, calcula el maximo de una matriz dispersa de manera mas eficiente
 	def maximo
 		aux = @vval[0]
 		for i in(0...@vval.size)
@@ -16,7 +20,8 @@ class MatrizDispersa < Matriz
 		end	
 		return aux
 	end
-
+	#==Metodo minimo
+	#Metodo sobrecargado, calcula el minimo de una matriz dispersa de manera mas eficiente
 	def minimo
 		aux = @vval[0]
 		for i in(0...@vval.size)
@@ -26,7 +31,8 @@ class MatrizDispersa < Matriz
 		end	
 		return aux
 	end
-
+	#== Metodo []
+	#Metodo de acceso a un valor de la matriz sobrecargado para que funcione con matrices dispersas
         def [](i,j)
 		for a in(0...@vval.size)
                		if (@vfil[a] == i && @vcol[a] == j)
@@ -35,7 +41,8 @@ class MatrizDispersa < Matriz
                 end
                 return 0 
         end
-          
+        #==Metodo []=
+	#Metodo de asignacion de un elemento de la matriz sobrecargado para que funcione con matrices dispersas  
         def []= (i,j, num) 
                 insertado = false
 		if(num == 0)
